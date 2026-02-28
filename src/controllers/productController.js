@@ -66,20 +66,21 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.createProduct = (req, res) => {
-  const { name, description, price, stock, category } = req.body;
+  const { name, description, price, stock} = req.body;
 
   if (!name || !price || !stock) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
   const query = `
-    INSERT INTO products (name, description, price, stock, category)
+    INSERT INTO products (name, description, price, stock)
     VALUES (?, ?, ?, ?, ?)
   `;
 
-  db.run(query, [name, description, price, stock, category], function (err) {
+  db.run(query, [name, description, price, stock], function (err) {
     if (err) {
-      return res.status(500).json({ message: "Database error" });
+      console.error("Create Product Error:", err.message);
+      return res.status(500).json({ message:err.message});
     }
 
     res.status(201).json({
