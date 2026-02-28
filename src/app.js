@@ -53,6 +53,11 @@ app.get('/', (req, res) => {
   res.json({ message: 'Ecommerce Backend Running' });
 });
 
+app.get("api/products/:id", (req, res) => {
+  const id = req.params.id;
+  // Fetch product from DB
+});
+
 app.get('/debug/users', (req, res) => {
   db.all("SELECT * FROM users", [], (err, rows) => {
     res.json(rows);
