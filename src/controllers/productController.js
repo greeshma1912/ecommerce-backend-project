@@ -74,7 +74,7 @@ exports.createProduct = (req, res) => {
 
   const query = `
     INSERT INTO products (name, description, price, stock)
-    VALUES (?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?)
   `;
 
   db.run(query, [name, description, price, stock], function (err) {
