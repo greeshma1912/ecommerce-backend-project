@@ -45,6 +45,7 @@ exports.getAllProducts = (req, res) => {
 
   db.all(query, params, (err, products) => {
     if (err) {
+      console.error("Create Product Error:", err.message);
       return res.status(500).json({ message: "Database error" });
     }
 
