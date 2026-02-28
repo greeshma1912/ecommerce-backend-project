@@ -63,3 +63,27 @@ exports.getAllProducts = (req, res) => {
     });
   });
 };
+
+exports.createProduct = (req, res) => {
+  const { name, description, price, stock, category } = req.body;
+
+  if (!name || !price || !stock) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  const query = `
+    INSERT INTO products (name, description, price, stock, category)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  db.run(query, [name, description, price, stock, category], function (err) {
+    if (err) {
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    res.status(201).json({
+      success: true,
+      productId: this.lastID
+    });
+  });
+};
